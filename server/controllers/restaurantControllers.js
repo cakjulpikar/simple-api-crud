@@ -1,6 +1,7 @@
 var restaurantModel = require('../models/restaurants')
+var ObjectId = require('mongodb').ObjectId
 
-var createFood = function (req,res) {
+var createRestaurant = function (req,res) {
   restaurantModel.create({
     name : req.body.name,
     owner : req.body.owner,
@@ -36,7 +37,7 @@ var getOne = function (req,res) {
   })
 }
 
-var updateFood = function (req,res) {
+var updateRestaurant = function (req,res) {
   restaurantModel.findOne({
     _id : ObjectId(req.params.id)
   }, function (err,resultFind) {
@@ -44,7 +45,7 @@ var updateFood = function (req,res) {
       res.status(500).send(err)
     } else {
       resultFind.name = req.body.name || resultFind.name
-      resultFind.owner = req.body.price || resultFind.owner
+      resultFind.owner = req.body.owner || resultFind.owner
       resultFind.address = req.body.address || resultFind.address
       resultFind.save(function (err) {
         if (err) {
@@ -70,5 +71,9 @@ var deleteOne = function (req,res) {
 }
 
 module.exports = {
-
+  createRestaurant,
+  getAll,
+  getOne,
+  deleteOne,
+  updateRestaurant
 };

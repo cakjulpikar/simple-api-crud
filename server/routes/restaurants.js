@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var restaurantControllers = require('../controllers/restaurantControllers')
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+router.post('/', restaurantControllers.createRestaurant)
+router.get('/', restaurantControllers.getAll)
+router.get('/:id', restaurantControllers.getOne)
+router.patch('/:id', restaurantControllers.updateRestaurant)
+router.delete('/:id', restaurantControllers.deleteOne)
 
 module.exports = router;
