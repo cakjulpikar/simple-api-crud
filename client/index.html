@@ -2,15 +2,45 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" charset="utf-8"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.16.2/axios.min.js" charset="utf-8"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.min.js" charset="utf-8"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.3.4/vue.js" charset="utf-8"></script>
     <title> Restaurant </title>
   </head>
   <body>
-
+    <div id="app">
+      <table>
+        <tr>
+          <th> Name </th>
+          <th> Owner </th>
+          <th> Address </th>
+        </tr>
+        <tr v-for="post of posts">
+          <td>{{post.name}}</td>
+          <td>{{post.owner}}</td>
+          <td>{{post.address}}</td>
+        </tr>
+      </table>
+    </div>
   </body>
 
   <script type="text/javascript">
-
+  import axios from 'axios';
+  var app = new Vue({
+    el: '#app',
+    data: {
+      posts: [],
+      errors: []
+    },
+    created: function(){
+      axios.get('localhost:3000')
+      .then(function (response) {
+        this.posts = response.data
+      })
+      .catch(function (err) {
+        this.errors.push(err)
+      })
+    }
+  })
   </script>
 </html>
