@@ -1,9 +1,9 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose')
 
 var foods = require('./routes/foods');
 var restaurants = require('./routes/restaurants');
@@ -14,6 +14,14 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+mongoose.connect('mongodb://localhost/simple-crud-api-zulfikar', {useMongoClient: true} , function (err) {
+  if (err) {
+    console.log(err);
+  } else {
+    console.log("MongoDB Connected");
+  }
+})
 
 app.use('/foods', foods);
 app.use('/restaurants', restaurants);

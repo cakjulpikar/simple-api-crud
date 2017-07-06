@@ -1,9 +1,11 @@
 var express = require('express');
 var router = express.Router();
+var foodControllers = require('../controllers/foodControllers')
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.post('/', foodControllers.createFood)
+router.get('/', foodControllers.getAll)
+router.get('/:id', foodControllers.getOne)
+router.patch('/:id', foodControllers.updateFood)
+router.delete('/id', foodControllers.deleteOne)
 
 module.exports = router;
